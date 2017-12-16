@@ -1600,7 +1600,7 @@ _Algorithm:_
 2. Decrease CWND by $\frac{CWND}{2}& on timeout
 3. CWND >= 1
     
-  
+
 * 11/30/17 Congestion Control, Congestion Avoidance
 
 file:diagrams/AIMD.png
@@ -1859,4 +1859,46 @@ wisc.edu
 - Threat models = how exactly bad guys attack?
 - Key distribution = Public Key Infrastructure (PKI)
 - Verification = how can we be sure systems are secure?
+
+
+* 12/12/17 RED, Network Security
+** Congestion Avoidance
+- Host-based = TCP Vegas
+  - Adjust CWND to pay attention to sending rate and building queues
+  - Never deployed
+- Network-based = *RED* (Random Early Detection)
+  - Intuition behind RED: have the network notify senders when
+    congestion is building
+    - Explicit Congestion Notification (*ECN*)
+    - Implicity -> drop (same) packet ***
+
+file:diagrams/router_congestion.png
+
+*** RED Algorithm
+
+$AvgQueueLen = (1 - w) * AvgQueueLength + (w * SampleQueueLength),
+w~=0.002$ \\
+
+- If AvgQueueLength <= MinThreshold
+  - Enqueue packet
+- If MinThreshold < AvgQueueLength < MaxThreshold
+  - Calculate p
+  - Drop next packet with probability = p
+- If AvgQueueLength >= MaxThreshold
+  - Drop next packet
+
+file:diagrams/RED.png
+
+** Network Security
+- Key Issue: Addressing threats/adversaries. Motivations:
+  - $$$
+  - Recognition
+  - "Terrorism" (Nation-state activities)
+- How are attacks facilitated?
+  - Security is not part of Internet architecture!
+  - Open Internet model
+  - Inversion of work
+  - Anonymity
+  - Complexity
+  - Humans in the loop
 

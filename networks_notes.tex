@@ -1,4 +1,4 @@
-% Created 2017-12-08 Fri 15:00
+% Created 2017-12-16 Sat 10:23
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -2764,5 +2764,73 @@ regardless of length of message
 \item Threat models = how exactly bad guys attack?
 \item Key distribution = Public Key Infrastructure (PKI)
 \item Verification = how can we be sure systems are secure?
+\end{itemize}
+
+
+\section{12/12/17 RED, Network Security}
+\label{sec:orgheadline171}
+\subsection{Congestion Avoidance}
+\label{sec:orgheadline169}
+\begin{itemize}
+\item Host-based = TCP Vegas
+\begin{itemize}
+\item Adjust CWND to pay attention to sending rate and building queues
+\item Never deployed
+\end{itemize}
+\item Network-based = \textbf{RED} (Random Early Detection)
+\begin{itemize}
+\item Intuition behind RED: have the network notify senders when
+congestion is building
+\begin{itemize}
+\item Explicit Congestion Notification (\textbf{ECN})
+\item Implicity -> drop (same) packet \textbf{*}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\includegraphics[width=.9\linewidth]{diagrams/router_congestion.png}
+
+\subsubsection{RED Algorithm}
+\label{sec:orgheadline168}
+
+\(AvgQueueLen = (1 - w) * AvgQueueLength + (w * SampleQueueLength),
+w~=0.002\) \\
+
+\begin{itemize}
+\item If AvgQueueLength <= MinThreshold
+\begin{itemize}
+\item Enqueue packet
+\end{itemize}
+\item If MinThreshold < AvgQueueLength < MaxThreshold
+\begin{itemize}
+\item Calculate p
+\item Drop next packet with probability = p
+\end{itemize}
+\item If AvgQueueLength >= MaxThreshold
+\begin{itemize}
+\item Drop next packet
+\end{itemize}
+\end{itemize}
+
+\includegraphics[width=.9\linewidth]{diagrams/RED.png}
+
+\subsection{Network Security}
+\label{sec:orgheadline170}
+\begin{itemize}
+\item Key Issue: Addressing threats/adversaries. Motivations:
+\begin{itemize}
+\item \$\$\$
+\item Recognition
+\item "Terrorism" (Nation-state activities)
+\end{itemize}
+\item How are attacks facilitated?
+\begin{itemize}
+\item Security is not part of Internet architecture!
+\item Open Internet model
+\item Inversion of work
+\item Anonymity
+\item Complexity
+\item Humans in the loop
+\end{itemize}
 \end{itemize}
 \end{document}
